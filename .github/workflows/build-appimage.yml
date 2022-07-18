@@ -1,0 +1,32 @@
+name: Build FLINT AppImage
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run the AppImage script
+        run: |
+          git clone https://github.com/ankitaS11/AppImageDataForFlint
+          cd AppImageDataForFlint
+          chmod +x ./AppImage_FLINT_Build.sh
+          ./AppImage_FLINT_Build.sh
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with: 
+          allowUpdates: True
+          tag: V1
+          name: AppImage Build
+          prerelease: False
+          artifacts: "out/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
