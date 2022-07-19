@@ -7,27 +7,35 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-18.04, ubuntu-20.04]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@master
 
-      - name: Run the AppImage script
+      - name: Check version
+        run: |
+          echo FLINT-${{ matrix.os }}
+
+      - name: Clone and run the AppImage script
         run: |
           git clone https://github.com/Crystalsage/FLINT-AppImage-Arch.git
           cd FLINT-AppImage-Arch
           git checkout check-ci-build
           chmod +x ./AppImage_FLINT_Build.sh
           ./AppImage_FLINT_Build.sh
+          mv /home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage /home/runner/FLINT-${{ matrix.os }}.AppImage
+
 
       - name: Create release
         uses: ncipollo/release-action@v1
         with: 
           allowUpdates: True
-          tag: V2
+          tag: V3
           name: AppImage Build
           prerelease: False
-          artifacts: "/home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage"
+          artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
-
-
