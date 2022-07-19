@@ -14,8 +14,9 @@ jobs:
 
       - name: Run the AppImage script
         run: |
-          git clone https://github.com/ankitaS11/AppImageDataForFlint
-          cd AppImageDataForFlint
+          git clone git@github.com:Crystalsage/FLINT-AppImage-Arch.git
+          cd FLINT-AppImage-Arch
+          git checkout check-ci-build
           chmod +x ./AppImage_FLINT_Build.sh
           ./AppImage_FLINT_Build.sh
 
