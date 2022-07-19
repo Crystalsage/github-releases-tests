@@ -14,7 +14,7 @@ jobs:
 
       - name: Run the AppImage script
         run: |
-          git clone git@github.com:Crystalsage/FLINT-AppImage-Arch.git
+          git clone https://github.com/Crystalsage/FLINT-AppImage-Arch.git
           cd FLINT-AppImage-Arch
           git checkout check-ci-build
           chmod +x ./AppImage_FLINT_Build.sh
