@@ -24,10 +24,10 @@ jobs:
         uses: ncipollo/release-action@v1
         with: 
           allowUpdates: True
-          tag: V1
+          tag: V2
           name: AppImage Build
           prerelease: False
-          artifacts: "out/*"
+          artifacts: "/home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
