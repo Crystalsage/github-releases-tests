@@ -3,3 +3,4 @@ Learning releases
 
 - Testing the blank template
 - Testing CI
+- Test version

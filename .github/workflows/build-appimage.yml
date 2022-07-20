@@ -2,6 +2,8 @@ name: Build FLINT AppImage
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - 'v*'
 
   workflow_dispatch:
 
@@ -15,10 +17,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-
-      - name: Check version
-        run: |
-          echo FLINT-${{ matrix.os }}
 
       - name: Clone and run the AppImage script
         run: |
@@ -34,8 +32,8 @@ jobs:
         uses: ncipollo/release-action@v1
         with: 
           allowUpdates: True
-          tag: V3
-          name: AppImage Build
+          name: ${{ github.ref }}
+          tag: ${{ github.ref }}
           prerelease: False
           artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
