@@ -5,3 +5,4 @@ Learning releases
 - Testing CI
 - Test version
 - Test CD
+- Test V1
