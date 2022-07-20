@@ -6,3 +6,4 @@ Learning releases
 - Test version
 - Test CD
 - Test V1
+- Test V3
