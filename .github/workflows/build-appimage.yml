@@ -30,9 +30,9 @@ jobs:
       - name: Create release
         uses: ncipollo/release-action@v1
         with: 
-          allowUpdates: True
-          name: ${{ github.ref }}
-          tag: ${{ github.ref }}
+          allowUpdates: true
+          name: 'Release ${{ github.ref }}'
+          tag: latest
           prerelease: False
           artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
