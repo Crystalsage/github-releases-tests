@@ -19,14 +19,18 @@ jobs:
 
       - name: Clone and run the AppImage script
         run: |
-          echo "Hello there!" >/home/runner/tmp.txt
+          git clone https://github.com/Crystalsage/FLINT-AppImage-Arch.git
+          cd FLINT-AppImage-Arch
+          git checkout check-ci-build
+          chmod +x ./AppImage_FLINT_Build.sh
+          ./AppImage_FLINT_Build.sh
+          mv /home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage /home/runner/FLINT-${{ matrix.os }}.AppImage
 
       - name: Create release
         uses: ncipollo/release-action@v1
         with: 
           allowUpdates: true
-          tag: release
-          bodyfile: .github/body.md
+          bodyfile: .github/release.md
           prerelease: False
-          artifacts: "/home/runner/tmp.txt"
+          artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
