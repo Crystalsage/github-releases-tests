@@ -41,12 +41,11 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/download-artifact@master
-      with:
-        name: "FLINT-${{ matrix.os }}.AppImage"
-        path: /home/runner/
-        
-    - run: cat path/to/artifact/world.txt
+      - uses: actions/download-artifact@master
+        with:
+          name: "FLINT-${{ matrix.os }}.AppImage"
+          path: /home/runner/
+          
       - name: Test AppImages
         run: |
           test -f "/home/runner/FLINT-{{ matrix.os }}.AppImage"; echo $?
