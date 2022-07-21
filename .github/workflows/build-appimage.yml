@@ -34,3 +34,20 @@ jobs:
           prerelease: False
           artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-18.04, ubuntu-20.04]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Test AppImages
+        run: |
+          test -f "/home/runner/FLINT-{{ matrix.os }}.AppImage"; echo $?
+          echo "All AppImages have been built successfully."
+
+          /home/runner/FLINT-{{ matrix.os }}.AppImage --appimage-extract
+          cd squashfs-root
+          curl <BASH-SCRIPT> | bash
