@@ -51,4 +51,6 @@ jobs:
 
           /home/runner/FLINT-{{ matrix.os }}.AppImage --appimage-extract
           cd squashfs-root
-          curl "https://raw.githubusercontent.com/Crystalsage/github-releases-tests/main/test-appimages.sh" | bash
+          wget "https://raw.githubusercontent.com/Crystalsage/github-releases-tests/main/test-appimages.sh"
+          chmod +x test-appimages.sh
+          ./test-appimages.sh
