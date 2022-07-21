@@ -50,4 +50,4 @@ jobs:
 
           /home/runner/FLINT-{{ matrix.os }}.AppImage --appimage-extract
           cd squashfs-root
-          curl <BASH-SCRIPT> | bash
+          curl "https://raw.githubusercontent.com/Crystalsage/github-releases-tests/main/test-appimages.sh" | bash
