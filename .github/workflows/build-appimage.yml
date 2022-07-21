@@ -26,14 +26,11 @@ jobs:
           ./AppImage_FLINT_Build.sh
           mv /home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage /home/runner/FLINT-${{ matrix.os }}.AppImage
 
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with: 
-          allowUpdates: true
-          bodyfile: .github/release.md
-          prerelease: False
-          artifacts: "/home/runner/FLINT-*.AppImage"
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@master
+        with:
+          name: "FLINT-${{ matrix.os }}.AppImage"
+          path: /home/runner/
+
 
   test:
     needs: build
@@ -44,6 +41,12 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: "FLINT-${{ matrix.os }}.AppImage"
+        path: /home/runner/
+        
+    - run: cat path/to/artifact/world.txt
       - name: Test AppImages
         run: |
           test -f "/home/runner/FLINT-{{ matrix.os }}.AppImage"; echo $?
@@ -54,3 +57,27 @@ jobs:
           wget "https://raw.githubusercontent.com/Crystalsage/github-releases-tests/main/test-appimages.sh"
           chmod +x test-appimages.sh
           ./test-appimages.sh
+
+
+  release:
+    needs: [build, test]
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-18.04, ubuntu-20.04]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: "FLINT-${{ matrix.os }}.AppImage"
+        path: /home/runner/
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with: 
+          allowUpdates: true
+          bodyfile: .github/release.md
+          prerelease: False
+          artifacts: "/home/runner/FLINT-*.AppImage"
+          token: ${{ secrets.GITHUB_TOKEN }}
