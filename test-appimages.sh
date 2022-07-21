@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Check if essential AppImages files have been bundled correctly
 function check_files() {
 	[ -s AppDir.desktop ] && echo "[OK] Desktop file exists" || exit 1
@@ -12,5 +10,6 @@ function run_flint_test_binaries() {
 	done
 }
 
+echo "RUNNING"
 check_files
 run_flint_test_binaries
