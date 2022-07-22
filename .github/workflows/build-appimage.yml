@@ -79,7 +79,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with: 
           allowUpdates: true
-          bodyfile: .github/release.md
+          bodyfile: release.md
           prerelease: False
           artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
