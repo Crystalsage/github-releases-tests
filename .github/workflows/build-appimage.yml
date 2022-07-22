@@ -17,6 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+
       - name: Clone and run the AppImage script
         run: |
           git clone https://github.com/Crystalsage/FLINT-AppImage-Arch.git
@@ -26,12 +27,13 @@ jobs:
           ./AppImage_FLINT_Build.sh
           mv /home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage /home/runner/FLINT-${{ matrix.os }}.AppImage
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+      - name: Cache artifacts
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-appimages
         with:
-          name: FLINT-${{ matrix.os }}.AppImage
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
-
+          key: ${{ matrix.os }}-appimage
 
   test:
     needs: build
@@ -42,10 +44,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/cache@v3
         with:
-          name: FLINT-${{ matrix.os }}.AppImage
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
+          key: ${{ matrix.os }}-appimage
           
       - name: Test AppImages
         run: |
@@ -68,10 +70,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/cache@v3
         with:
-          name: FLINT-${{ matrix.os }}.AppImage
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
+          key: ${{ matrix.os }}-appimage
 
       - name: Create release
         uses: ncipollo/release-action@v1
