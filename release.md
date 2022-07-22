@@ -1,5 +1,5 @@
 # Release notes
-Markdown in .github
+Markdown in root
 
 This release introduces several changes, as follows:
 - Change 1
