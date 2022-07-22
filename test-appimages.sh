@@ -6,7 +6,7 @@ function check_files() {
 
 function run_flint_test_binaries() {
 	for f in usr/bin/*; do
-		"$f" &>/dev/null && echo "[OK] $f" || echo "[ERR] $f" && exit 1
+		"$f" &>/dev/null && echo "[OK] $f" || echo "[ERR] $f"
 	done
 }
 

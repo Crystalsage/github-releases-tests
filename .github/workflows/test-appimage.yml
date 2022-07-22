@@ -16,20 +16,14 @@ jobs:
     steps:
       - name: Test AppImages
         run: |
-          mkdir -p /home/runner/tmp/FLINT/Source/build/
-          cd /home/runner/tmp/FLINT/Source/build/
           wget -q "https://github.com/Crystalsage/github-releases-tests/releases/download/v9.0/FLINT-${{ matrix.os }}.AppImage"
-          mv /home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage /home/runner/
-          chmod +x /home/runner/FLINT-${{ matrix.os }}.AppImage
 
-          ls /home/runner/
-          ls .
-          pwd
-
-          test -f /home/runner/FLINT-${{ matrix.os }}.AppImage; echo $?
+          test -f FLINT-${{ matrix.os }}.AppImage; echo $?
           echo "All AppImages have been built successfully."
 
-          /home/runner/FLINT-${{ matrix.os }}.AppImage --appimage-extract
+          chmod +x FLINT-${{ matrix.os }}.AppImage
+          ./FLINT-${{ matrix.os }}.AppImage --appimage-extract
+
           cd squashfs-root
           wget "https://raw.githubusercontent.com/Crystalsage/github-releases-tests/main/test-appimages.sh"
           chmod +x test-appimages.sh
