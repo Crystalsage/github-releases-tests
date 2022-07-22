@@ -82,12 +82,14 @@ jobs:
           pwd
           echo "Files at pwd"
           ls .
+          echo "Files at home"
+          ls /home/runner
 
       - name: Create release
         uses: ncipollo/release-action@v1
         with: 
           allowUpdates: true
-          bodyfile: release.md
+          bodyfile: .github/release.md
           prerelease: False
           artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
