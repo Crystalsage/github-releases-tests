@@ -5,9 +5,7 @@ function check_files() {
 }
 
 function run_flint_test_binaries() {
-	for f in usr/bin/*; do
-		"$f" &>/dev/null && echo "[OK] $f" || echo "[ERR] $f"
-	done
+	./usr/bin/moja.cli &>/dev/null && echo "[OK] $f" || echo "[ERR] $f"
 }
 
 check_files
