@@ -1,5 +1,4 @@
 # Release notes
-Markdown in .github
 
 This release introduces several changes, as follows:
 - Change 1
