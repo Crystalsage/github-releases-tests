@@ -77,14 +77,6 @@ jobs:
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
           key: ${{ matrix.os }}-appimage
 
-      - name: Check locations
-        run: |
-          pwd
-          echo "Files at pwd"
-          ls .
-          echo "Files at home"
-          ls /home/runner
-
       - name: Create release
         uses: ncipollo/release-action@v1
         with: 
