@@ -51,6 +51,9 @@ jobs:
           
       - name: Test AppImages
         run: |
+          ls /home/runner/
+          ls .
+          pwd
           test -f "/home/runner/FLINT-{{ matrix.os }}.AppImage"; echo $?
           echo "All AppImages have been built successfully."
 
