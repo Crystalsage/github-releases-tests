@@ -26,13 +26,11 @@ jobs:
           ./AppImage_FLINT_Build.sh
           mv /home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage /home/runner/FLINT-${{ matrix.os }}.AppImage
 
-      - name: Cache artifacts
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-appimages
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
+          name: ${{ matrix.os }}-appimage
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
-          key: ${{ matrix.os }}-appimage
 
 
   test:
@@ -73,10 +71,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/download-artifact@master
+      - uses: actions/download-artifact@v3
         with:
-          name: "FLINT-${{ matrix.os }}.AppImage"
-          path: /home/runner/
+          name: "${{ matrix.os }}-appimage"
+          path: /home/runner/FLINT-${{ matrix.os }}.AppImage
 
       - name: Create release
         uses: ncipollo/release-action@v1
