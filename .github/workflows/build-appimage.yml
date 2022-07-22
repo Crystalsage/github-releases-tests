@@ -29,7 +29,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os }}-appimage
+          name: FLINT-${{ matrix.os }}.AppImage
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
 
 
@@ -42,20 +42,17 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/cache@v3
+      - uses: actions/download-artifact@v3
         with:
+          name: FLINT-${{ matrix.os }}.AppImage
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
-          key: ${{ matrix.os }}-appimage
           
       - name: Test AppImages
         run: |
-          ls /home/runner/
-          ls .
-          pwd
-          test -f "/home/runner/FLINT-{{ matrix.os }}.AppImage"; echo $?
+          test -f "/home/runner/FLINT-${{ matrix.os }}.AppImage"; 
           echo "All AppImages have been built successfully."
 
-          /home/runner/FLINT-{{ matrix.os }}.AppImage --appimage-extract
+          /home/runner/FLINT-${{ matrix.os }}.AppImage --appimage-extract
           cd squashfs-root
           wget "https://raw.githubusercontent.com/Crystalsage/github-releases-tests/main/test-appimages.sh"
           chmod +x test-appimages.sh
@@ -73,7 +70,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: "${{ matrix.os }}-appimage"
+          name: FLINT-${{ matrix.os }}.AppImage
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
 
       - name: Create release
