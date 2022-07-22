@@ -70,10 +70,18 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - uses: actions/checkout@master
+
       - uses: actions/cache@v3
         with:
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
           key: ${{ matrix.os }}-appimage
+
+      - name: Check locations
+        run: |
+          pwd
+          echo "Files at pwd"
+          ls .
 
       - name: Create release
         uses: ncipollo/release-action@v1
