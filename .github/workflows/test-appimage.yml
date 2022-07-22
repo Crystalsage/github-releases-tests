@@ -17,5 +17,5 @@ jobs:
       - name: Test AppImages
         run: |
           wget -q "https://github.com/Crystalsage/github-releases-tests/releases/download/v9.0/FLINT-${{ matrix.os }}.AppImage"
-          test -f $(pwd)/FLINT-${{ matrix.os }}.AppImage
+          test -f $(pwd)/FLINT-${{ matrix.os }}.AppImage; echo $?
           echo "AppImages built succesfully"
