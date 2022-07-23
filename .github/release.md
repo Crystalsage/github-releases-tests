@@ -1,4 +1,5 @@
 # Release notes
+Version 5
 
 This release introduces several changes, as follows:
 - Change 1
