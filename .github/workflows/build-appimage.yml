@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Clone and run the AppImage script
+      - name: Clone the AppImage script
         run: |
           git clone https://github.com/Crystalsage/FLINT-AppImage-Arch.git
           cd FLINT-AppImage-Arch
@@ -21,6 +21,10 @@ jobs:
           chmod +x ./AppImage_FLINT_Build.sh
           ./AppImage_FLINT_Build.sh
           mv /home/runner/tmp/FLINT/Source/build/FLINT-*.AppImage /home/runner/FLINT-${{ matrix.os }}.AppImage
+
+      - name: Test the AppImage script
+        run: |
+          echo "TODO"
 
       - name: Cache artifacts
         uses: actions/cache@v3
