@@ -1,11 +1,2 @@
 # Release notes
-Version 5
-
-This release introduces several changes, as follows:
-- Change 1
-- Change 2 
-
-Bugs fixed:
-- [x] Bug 1
-- [x] Bug 2
-- [x] Bug 3
+<!-- This is a file used to write release notes -->
