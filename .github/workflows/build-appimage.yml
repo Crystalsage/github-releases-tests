@@ -4,6 +4,13 @@ on:
     tags:
       - 'v*'
 
+  workflow_dispatch:
+    inputs:
+      devRelease:
+        description: "Is this a dev release?"
+        required: true
+        type: boolean
+
 jobs:
   build:
     strategy:
@@ -76,7 +83,18 @@ jobs:
           path: /home/runner/FLINT-${{ matrix.os }}.AppImage
           key: ${{ matrix.os }}-appimage
 
-      - name: Create release
+      - name: Create dev release
+        if: ${{ inputs.devRelease }}
+        uses: ncipollo/release-action@v1
+        with: 
+          allowUpdates: true
+          name: "Dev release"
+          prerelease: False
+          artifacts: "/home/runner/FLINT-*.AppImage"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create production release
+        if: ${{ !inputs.devRelease }}
         uses: ncipollo/release-action@v1
         with: 
           allowUpdates: true
