@@ -10,13 +10,6 @@ on:
         description: "Is this a dev release?"
         required: true
         type: boolean
-      tag:
-        description: "Tag"
-        required: false
-        default: "dev"
-        type: string
-
-
 
 jobs:
   build:
@@ -92,7 +85,7 @@ jobs:
         with: 
           allowUpdates: true
           name: "Dev release"
-          tag: "${{ inputs.tags }}"
+          tag: "dev"
           prerelease: False
           artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
