@@ -92,6 +92,7 @@ jobs:
         with: 
           allowUpdates: true
           name: "Dev release"
+          tag: "${{ inputs.tags }}"
           prerelease: False
           artifacts: "/home/runner/FLINT-*.AppImage"
           token: ${{ secrets.GITHUB_TOKEN }}
