@@ -18,12 +18,14 @@ jobs:
       - name: Result
         run: |
           echo "${{ inputs.devRelease }}"
+
       - name: Release dev
         if: ${{ inputs.devRelease }}
         run: |
           echo "This is a dev release"
+
       - name: Release normal
         if: ${{ !inputs.devRelease }}
         run: |
-          echo "This is a dev release"
+          echo "This is a normal release"
 
