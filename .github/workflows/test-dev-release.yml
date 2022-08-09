@@ -17,66 +17,12 @@ jobs:
       - name: Result
         run: |
           echo "${{ inputs.devRelease }}"
-
-      - name: Test the AppImage script
+      - name: Release dev
+        if: ${{ inputs.devRelease }}
         run: |
-          echo "TODO"
-
-      - name: Cache artifacts
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-appimages
-        with:
-          path: /home/runner/FLINT-${{ matrix.os }}.AppImage
-          key: ${{ matrix.os }}-appimage
-
-  test:
-    needs: build
-    strategy:
-      matrix:
-        os: [ubuntu-18.04, ubuntu-20.04, ubuntu-22.04]
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - uses: actions/cache@v3
-        with:
-          path: /home/runner/FLINT-${{ matrix.os }}.AppImage
-          key: ${{ matrix.os }}-appimage
-          
-      - name: Test AppImages
+          echo "This is a dev release"
+      - name: Release normal
+        if: ${{ !inputs.devRelease }}
         run: |
-          test -f "/home/runner/FLINT-${{ matrix.os }}.AppImage"; 
-          echo "All AppImages have been built successfully."
+          echo "This is a dev release"
 
-          /home/runner/FLINT-${{ matrix.os }}.AppImage --appimage-extract
-          cd squashfs-root
-          wget "https://raw.githubusercontent.com/Crystalsage/github-releases-tests/main/test-appimages.sh"
-          chmod +x test-appimages.sh
-          ./test-appimages.sh
-
-
-  release:
-    needs: [build, test]
-    strategy:
-      matrix:
-        os: [ubuntu-18.04, ubuntu-20.04, ubuntu-22.04]
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - uses: actions/checkout@master
-
-      - uses: actions/cache@v3
-        with:
-          path: /home/runner/FLINT-${{ matrix.os }}.AppImage
-          key: ${{ matrix.os }}-appimage
-
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with: 
-          allowUpdates: true
-          bodyfile: .github/release.md
-          prerelease: False
-          artifacts: "/home/runner/FLINT-*.AppImage"
-          token: ${{ secrets.GITHUB_TOKEN }}
