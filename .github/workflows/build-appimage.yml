@@ -10,10 +10,12 @@ on:
         description: "Is this a dev release?"
         required: true
         type: boolean
-    tags:
-      description: 'Dev release tag'
-      required: true
-      type: boolean
+      tag:
+        description: "Tag"
+        required: false
+        default: "dev"
+        type: string
+
 
 
 jobs:
