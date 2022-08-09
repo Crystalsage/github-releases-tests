@@ -1,4 +1,4 @@
-name: Build FLINT AppImage
+name: Dev release tests
 on:
   push:
     tags:
