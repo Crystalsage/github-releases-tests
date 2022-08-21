@@ -16,24 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get latest commit hash
+        id: commits
+        shell: bash
+        run: |
+          echo "::set-output name=commit_sha::$(git rev-parse --short HEAD)"
+
       - name: Create dev release
         if: ${{ inputs.devRelease }}
         run: |
           echo "Dev release"
-          echo ${{ github.ref_type }}
+          echo ${{ format('dev-{0}', steps.var.commits.commit_sha) }}
 
-      - name: Check type
-        run: |
-          echo ${{ github.ref_type }}
-        
-      # This is because releases _need_ a tag. 
-      # Please consider changing the tag later by pushing one.
-      - name: Create production release for manual run
-        if: ${{ (!inputs.devRelease) && (startsWith(github.ref_type, 'branch')) }} 
-        run: |
-          echo "Production release with no tag"
 
-      - name: Create production release with a tag
-        if: ${{ (!inputs.devRelease) && (startsWith(github.ref_type, 'tag')) }} 
-        run: |
-          echo "Production release with tag"
