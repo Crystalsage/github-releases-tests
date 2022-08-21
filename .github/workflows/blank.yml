@@ -28,6 +28,4 @@ jobs:
         if: ${{ inputs.devRelease }}
         run: |
           echo "Dev release"
-          echo ${{ format('dev-{0}', steps.var.commits.commit_sha) }}
-
-
+          echo ${{ format('dev-{0}', steps.commits.outputs.commit_sha) }}
